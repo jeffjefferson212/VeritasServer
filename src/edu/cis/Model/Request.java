@@ -128,7 +128,7 @@ public class Request
 
     public String getParam(String key)
     {
-        return this.hasParam(key) ? decode((String) this.params.get(this.sanitize(key))) : null;
+        return this.hasParam(key) ? decode(this.params.get(this.sanitize(key))) : null;
     }
 
     public Iterator<String> getParamNames()
@@ -172,11 +172,11 @@ public class Request
                 String key = (String) itr.next();
                 if (isFirst)
                 {
-                    getRequest = getRequest + "?" + key + "=" + (String) this.params.get(key);
+                    getRequest = getRequest + "?" + key + "=" + this.params.get(key);
                     isFirst = false;
                 } else
                 {
-                    getRequest = getRequest + "&" + key + "=" + (String) this.params.get(key);
+                    getRequest = getRequest + "&" + key + "=" + this.params.get(key);
                 }
             }
         }

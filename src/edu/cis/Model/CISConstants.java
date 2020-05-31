@@ -11,20 +11,20 @@ public class CISConstants
     public static final String FALSE_RET = "false";
 
     //Parameters for requests
-    public static final String NAME = "name";
-    public static final String STATUS = "status";
-    public static final String NAME1 = "name1";
-    public static final String NAME2 = "name2";
-    public static final String SERIALTAG = "serialtag";
-    public static final String SERIALNUM = "serialnum";
+
+    public static final String SERIALTAG = "serialTag";
+    public static final String SERIALNUM = "serialNum";
     public static final String NUMBEROFGOODS = "#ofgoods";
+    public static final String NUMBERTOBESIGNED = "number";
+
 
 
     //Commands
     public static final String PING = "ping";
     public static final String ADD_PROF = "addProfile";
-    public static final String GET_PUBKEY = "getPrivateKey";
+    public static final String GET_PUBKEY = "getPublicKey";
     public static final String ADD_PUBKEY = "addPublicKey";
+    public static final String SIGN = "sign";
 
 
     //Errors

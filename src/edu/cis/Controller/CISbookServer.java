@@ -11,15 +11,13 @@ import acm.program.*;
 import edu.cis.Model.CISConstants;
 import edu.cis.Model.Request;
 import edu.cis.Model.SimpleServerListener;
-import edu.cis.Utils.KeyUtils;
-import edu.cis.Utils.KeysDB;
 import edu.cis.Utils.Serialization;
 import edu.cis.Utils.SimpleServer;
 
 import java.io.IOException;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
+import java.security.SignatureException;
 
 
 public class CISbookServer extends ConsoleProgram
@@ -48,7 +46,7 @@ public class CISbookServer extends ConsoleProgram
      * called. It must return a String.
      */
 
-    public String requestMade(Request request) throws IOException, ClassNotFoundException, NoSuchAlgorithmException {
+    public String requestMade(Request request) throws IOException, ClassNotFoundException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
         String cmd = request.getCommand();
         println(request.toString());
 
@@ -62,10 +60,14 @@ public class CISbookServer extends ConsoleProgram
 
         if (request.getCommand().equals(CISConstants.GET_PUBKEY))
         {
+            System.out.println("accepted public key");
             String serialtag =request.getParam(CISConstants.SERIALTAG);
             int serialNum =Integer.parseInt(request.getParam(CISConstants.SERIALNUM));
-            Serialization.getPublicKey(serialtag,serialNum);
+            System.out.println(Serialization.getPublicKey(serialtag,serialNum));
+            return Serialization.getPublicKey(serialtag,serialNum).toString();
+
         }
+
         if (request.getCommand().equals(CISConstants.ADD_PUBKEY))
         {
             String serialtag =request.getParam(CISConstants.SERIALTAG);
@@ -77,6 +79,15 @@ public class CISbookServer extends ConsoleProgram
             final String PING_MSG = "Hello, internet";
             println("   => " + PING_MSG);
             return PING_MSG;
+        }
+        if (request.getCommand().equals(CISConstants.SIGN))
+        {
+            String serialtag =request.getParam(CISConstants.SERIALTAG);
+            String message=request.getParam(CISConstants.NUMBERTOBESIGNED);
+            String serialNum =request.getParam(CISConstants.SERIALNUM);
+
+            return Serialization.sign(serialtag,serialNum,message);
+
         }
 
 

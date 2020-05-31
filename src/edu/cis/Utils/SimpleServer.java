@@ -12,6 +12,9 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URI;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
 import java.util.concurrent.Executor;
 
 /**
@@ -137,7 +140,7 @@ public class SimpleServer extends SimpleNetworking implements HttpHandler
                     //the server will be create at the port given.
                     this.server = HttpServer.create(new InetSocketAddress(this.port), 0);
                     this.server.createContext("/", this);
-                    this.server.setExecutor((Executor) null);
+                    this.server.setExecutor(null);
                     this.server.start();
                 } catch (IOException excp)
                 {
@@ -189,7 +192,7 @@ public class SimpleServer extends SimpleNetworking implements HttpHandler
             } else
             {
                 //record the return of the request so that the rest of the program can use it.
-                t.sendResponseHeaders(200, (long) responseStr.length());
+                t.sendResponseHeaders(200, responseStr.length());
                 OutputStream os = t.getResponseBody();
                 os.write(responseStr.getBytes());
                 os.close();
@@ -198,6 +201,14 @@ public class SimpleServer extends SimpleNetworking implements HttpHandler
         {
             excp.printStackTrace();
             throw new RuntimeException(excp);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SignatureException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
         }
     }
 }

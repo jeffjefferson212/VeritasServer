@@ -68,9 +68,9 @@ public class SimpleNetworking
 
     private static BufferedImage imageToBufferedImage(Image im)
     {
-        BufferedImage bi = new BufferedImage(im.getWidth((ImageObserver) null), im.getHeight((ImageObserver) null), 1);
+        BufferedImage bi = new BufferedImage(im.getWidth(null), im.getHeight(null), 1);
         Graphics bg = bi.getGraphics();
-        bg.drawImage(im, 0, 0, (ImageObserver) null);
+        bg.drawImage(im, 0, 0, null);
         bg.dispose();
         return bi;
     }

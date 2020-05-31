@@ -21,7 +21,7 @@ public class KeysDB {
     //Member function
     public void addKey ( String  value)
     {
-        String key = "A" + Integer.toString(keysMap.size()+1);
+        String key = "A" + (keysMap.size() + 1);
         keysMap.put(key,value);
     }
    public void writeToFile ()
